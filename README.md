@@ -8,7 +8,8 @@ HTTP-proxy will run on 8080 container port, SOCKS4/5-proxy on 3128 container por
 Building:
 ```
 ./config.sh
-`docker build . -t 3proxy-docker
+docker build . -t 3proxy-docker
 ```
 Running (example):
+
 `docker run -d --name='3proxy' -p 34204:8080 -p 43012:3128 3proxy-docker`
