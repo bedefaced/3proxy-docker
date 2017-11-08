@@ -26,19 +26,36 @@ read -p "Preffered DNS resolver #2: " -e -i $DEFAULTDNS2 DNS2
 sed -i -e "s@NS1@$DNS1@g" $DST
 sed -i -e "s@NS2@$DNS2@g" $DST
 
-# add users
-ADDUSER="no"
-ANSUSER="yes"
-
+# config auth
+SETSTRONG="yes"
+ANSAUTH="yes"
 echo
-echo "Configuring users..."
-while [ "$ANSUSER" != "$ADDUSER" ]; 
-do
-	$DIR/adduser.sh $DST
+read -p "Would you need authorization? [yes] " ANSAUTH
+: ${ANSAUTH:=$SETSTRONG}
 
-	read -p "Would you want add another user? [no] " ANSUSER
-	: ${ANSUSER:=$ADDUSER}
-done
+if [ "$SETSTRONG" == "$ANSAUTH" ]; then
+    sed -i -e "s@AUTH@strong@g" $DST
+
+    # add users
+    ADDUSER="no"
+    ANSUSER="yes"
+
+    echo
+    echo "Configuring users..."
+
+
+    while [ "$ANSUSER" != "$ADDUSER" ]; 
+    do
+    	$DIR/adduser.sh $DST
+
+    	read -p "Would you want add another user? [no] " ANSUSER
+    	: ${ANSUSER:=$ADDUSER}
+    done
+
+else
+    sed -i -e "s@AUTH@none@g" $DST
+fi
+
 
 echo
 echo "Configuration script completed."

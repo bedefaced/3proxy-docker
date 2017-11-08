@@ -2,7 +2,7 @@
 nscache 65535
 timeouts 1 5 30 60 180 1800 15 60
 
-auth strong
+auth AUTH
 
 proxy -p8080 -n
 socks -p3128
