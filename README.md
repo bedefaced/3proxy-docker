@@ -12,4 +12,4 @@ docker build -t 3proxy-docker .
 ```
 Running (example):
 
-`docker run -d --name='3proxy' -p 34204:8080 -p 43012:3128 3proxy-docker`
+`docker run -d --name='3proxy' --restart always -p 34204:8080 -p 43012:3128 3proxy-docker`
