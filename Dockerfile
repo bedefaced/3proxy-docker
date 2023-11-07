@@ -1,4 +1,4 @@
-FROM 	phusion/baseimage:latest
+FROM 	phusion/baseimage:focal-1.0.0
 MAINTAINER	bedefaced
 
 ENV 	BUILD_DEPS autoconf file gcc git libc-dev make pkg-config git iproute2
@@ -12,9 +12,8 @@ COPY 	3proxy.cfg /etc/3proxy.cfg
 
 RUN 	set -x && \
 	cd /tmp/3proxy && \
-	git clone https://github.com/z3APA3A/3proxy.git && \
+	git clone -b 0.8 https://github.com/z3APA3A/3proxy.git && \
 	cd 3proxy && \
-	git checkout master && \
 	sed -i -r 's/(^CFLAGS.*)/\1 -DANONYMOUS=1/g' Makefile.Linux && \
 	make -f Makefile.Linux && \
 	make -f Makefile.Linux install
